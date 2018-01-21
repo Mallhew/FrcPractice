@@ -6,10 +6,12 @@ import org.usfirst.frc.team2438.robot.subsystems.Lift;
 import edu.wpi.first.wpilibj.command.Command;
 
 public abstract class CommandBase extends Command {
-	public static OI oi = new OI();
-	public static Lift lift = new Lift();
+	public static OI oi;
+	public static final Lift lift = new Lift();
 	
 	public static void init() {
+		oi = new OI();
+		
 		lift.init();
 	}
 }
