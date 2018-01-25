@@ -88,6 +88,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		updateDashboard();
 	}
 
 	/**
@@ -95,5 +97,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+	
+	public void updateDashboard() {
+		SmartDashboard.putNumber("Ticks", CommandBase.lift.getPosition());
+		SmartDashboard.putString("Command", CommandBase.lift.getCurrentCommandName());
 	}
 }

@@ -16,6 +16,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -35,6 +36,7 @@ public class Lift extends Subsystem {
 	public void init() {
 		_lift = new TalonSRX(RobotMap.lift);
 		_lift.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		_lift.setSensorPhase(true);
     	_lift.setSelectedSensorPosition(0, 0, 0);
 	
     	_lift.configNominalOutputForward(0, 0);
@@ -43,25 +45,31 @@ public class Lift extends Subsystem {
     	_lift.configPeakOutputReverse(-1, 0);
     	
     	_lift.selectProfileSlot(0, 0);
-    	_lift.config_kF(0, 0, 0);
-    	_lift.config_kP(0, 0, 0);
+    	_lift.config_kF(0, 0.17, 0);
+    	_lift.config_kP(0, 0.05, 0);
     	_lift.config_kI(0, 0, 0);
     	_lift.config_kD(0, 0, 0);
     	_lift.config_IntegralZone(0, 0, 0);
-    	_lift.configMotionAcceleration(0, 0);
-    	_lift.configMotionCruiseVelocity(0, 0);
+    	_lift.configMotionAcceleration(6000, 0);
+    	_lift.configMotionCruiseVelocity(6000, 0);
     	_lift.set(ControlMode.MotionMagic, 0);
 	}
 	
 	public void setPower(double power) {
 		_lift.set(ControlMode.PercentOutput, power);
+		SmartDashboard.putNumber("power", _lift.getMotorOutputVoltage());
 	}
 	
 	public void setPosition(double inches) {
 		_lift.set(ControlMode.MotionMagic, inches*ENCODER_TICKS_PER_INCH);
 	}
+	
+	public int getPosition() {
+		return _lift.getSelectedSensorPosition(0);
+	}
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		 setDefaultCommand(new OperateLift());
+		setDefaultCommand(new OperateLift());
 	}
 }

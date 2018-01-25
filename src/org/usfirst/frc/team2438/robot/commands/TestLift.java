@@ -10,8 +10,8 @@ package org.usfirst.frc.team2438.robot.commands;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class LiftToPosition extends CommandBase {
-	public LiftToPosition() {
+public class TestLift extends CommandBase {
+	public TestLift() {
 		// Use requires() here to declare subsystem dependencies
 		requires(lift);
 	}
@@ -19,7 +19,7 @@ public class LiftToPosition extends CommandBase {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		lift.setPosition(2);
+		lift.setPosition(oi.getLeftStick()*2);
 	}
 
 	// Called repeatedly when this Command is scheduled to run

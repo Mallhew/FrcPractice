@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2438.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -25,6 +27,8 @@ public class OperateLift extends CommandBase {
 	@Override
 	protected void execute() {
 		lift.setPower(oi.getLeftStick());
+		SmartDashboard.putNumber("Power", -oi.getLeftStick());
+		SmartDashboard.updateValues();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
